@@ -11,6 +11,7 @@ namespace TarodevController {
     /// If you hve any questions or would like to brag about your score, come to discord: https://discord.gg/GqeHHnhHpz
     /// </summary>
     public class PlayerController : MonoBehaviour, IPlayerController {
+
         // Public for external hooks
         public Vector3 Velocity { get; private set; }
         public FrameInput Input { get; private set; }
@@ -49,9 +50,9 @@ namespace TarodevController {
 
         private void GatherInput() {
             Input = new FrameInput {
-                JumpDown = UnityEngine.Input.GetButtonDown("Jump"),
-                JumpUp = UnityEngine.Input.GetButtonUp("Jump"),
-                X = UnityEngine.Input.GetAxisRaw("Horizontal")
+                JumpDown = Controller.JumpButton.Pressed,
+                JumpUp = Controller.JumpButton.LetGo,
+                X = Controller.Movement.x
             };
             if (Input.JumpDown) {
                 _lastJumpPressed = Time.time;
@@ -66,7 +67,7 @@ namespace TarodevController {
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private int _detectorCount = 3;
         [SerializeField] private float _detectionRayLength = 0.1f;
-        [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
+        [SerializeField] [Range(0f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
 
         private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
         private bool _colUp, _colRight, _colDown, _colLeft;
@@ -142,7 +143,6 @@ namespace TarodevController {
         }
 
         #endregion
-
 
         #region Walk
 
