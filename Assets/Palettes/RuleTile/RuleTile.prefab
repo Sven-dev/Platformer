@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 3879268397209907747}
   - component: {fileID: 3206779489165378902}
   m_Layer: 31
-  m_Name: Palette
+  m_Name: RuleTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

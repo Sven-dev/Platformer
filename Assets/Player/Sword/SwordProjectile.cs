@@ -27,9 +27,6 @@ public class SwordProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.gameObject.layer);
-        print(WallMask.value);
-
         //Hitting a wall
         if (WallMask == (WallMask | (1 << collision.gameObject.layer)))
         {

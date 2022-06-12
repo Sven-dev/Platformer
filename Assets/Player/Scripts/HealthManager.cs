@@ -12,7 +12,7 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private List<SpriteRenderer> Renderers;
     [Space]
     [SerializeField] private UnityIntEvent OnHealthChange;
-    [Space]
+    [SerializeField] private UnityIntEvent OnMaxHealthChange;
     [SerializeField] private UnityVoidEvent OnDeath;
 
     private int MaxHealth;
@@ -20,7 +20,21 @@ public class HealthManager : MonoBehaviour
     private void Start()
     {
         MaxHealth = Health;
+        OnMaxHealthChange?.Invoke(MaxHealth);
         OnHealthChange?.Invoke(Health);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "EnemyDamage")
+        {
+            TakeDamage(1);
+            //Knockback?
+        }
+        else if (collision.tag == "EnvironmentDamage")
+        {
+            Death();
+        }
     }
 
     public void TakeDamage(int damage)
@@ -46,7 +60,18 @@ public class HealthManager : MonoBehaviour
 
     private void Death()
     {
-        //To do: Death cutscene
+        //Lock controls
+
+        //Play death animation
+
+        //Trigger screen wipe
+
+        //place player at respawn point
+
+        //Trigger screen wipe
+
+        //Unlock controls
+
         print("Death");
         OnDeath?.Invoke();
     }
