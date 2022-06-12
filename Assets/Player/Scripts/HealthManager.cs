@@ -29,12 +29,14 @@ public class HealthManager : MonoBehaviour
         if (collision.tag == "EnemyDamage")
         {
             TakeDamage(1);
+            AudioManager.Instance.Play("PlayerHit");
             //Knockback?
         }
         else if (collision.tag == "EnvironmentDamage")
         {
             Death();
-        }
+            AudioManager.Instance.Play("PlayerHit");
+        }      
     }
 
     public void TakeDamage(int damage)
