@@ -49,6 +49,7 @@ public class HealthManager : MonoBehaviour
         else
         {
             StartCoroutine(_Iframes());
+            StartCoroutine(_Flash());
         }
     }
 
@@ -60,6 +61,8 @@ public class HealthManager : MonoBehaviour
 
     private void Death()
     {
+        StartCoroutine(_Flash());
+
         //Lock controls
 
         //Play death animation
@@ -76,9 +79,26 @@ public class HealthManager : MonoBehaviour
         OnDeath?.Invoke();
     }
 
+    private IEnumerator _Flash()
+    {
+        foreach(SpriteRenderer renderer in Renderers)
+        {
+            renderer.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        foreach (SpriteRenderer renderer in Renderers)
+        {
+            renderer.color = Color.white;
+        }
+    }
+
     private IEnumerator _Iframes()
     {
         Hitbox.enabled = false;
+
+        yield return new WaitForSeconds(0.1f);
 
         float progress = 0;
         while (progress < IframeTime)
